@@ -1,12 +1,35 @@
+"""
+Difference-in-Differences (DiD) estimators.
+
+This module implements two approaches to DiD estimation: a simple group-means
+estimator and a regression-based estimator with an interaction term, both
+supporting an arbitrary pre/post period cutoff.
+"""
+
 import pandas as pd
 import statsmodels.formula.api as smf
 
 
 def difference_in_differences(df: pd.DataFrame, time_col: str, period_cutoff, treatment_col: str, outcome_col: str):
-    """Simple DiD estimator using group means.
+    """Estimate the average treatment effect using a simple DiD on group means.
 
-    period_cutoff: a value in `time_col` that splits pre/post (e.g., a datetime)
-    Returns the DiD estimate (post_treat - pre_treat) - (post_ctrl - pre_ctrl)
+    Splits observations into pre/post periods based on ``period_cutoff``, then
+    computes the DiD estimate as:
+    (mean_treated_post - mean_treated_pre) - (mean_control_post - mean_control_pre)
+
+    Args:
+        df: DataFrame containing time, treatment, and outcome columns.
+        time_col: Name of the column representing the time dimension.
+        period_cutoff: Threshold value in ``time_col`` that divides pre (< cutoff)
+            from post (>= cutoff) periods. Can be a datetime, int, or float.
+        treatment_col: Name of the binary treatment column (0/1).
+        outcome_col: Name of the outcome column to analyze.
+
+    Returns:
+        did: The scalar DiD estimate of the average treatment effect.
+        cell_means: Dict with keys ``treated_pre``, ``treated_post``,
+            ``control_pre``, ``control_post`` containing the group means used
+            to compute the estimate.
     """
     df = df.copy()
     df["period"] = (df[time_col] >= period_cutoff).astype(int)
@@ -30,9 +53,27 @@ def difference_in_differences(df: pd.DataFrame, time_col: str, period_cutoff, tr
 
 
 def regression_did(df: pd.DataFrame, time_col: str, period_cutoff, treatment_col: str, outcome_col: str, covariates: list | None = None):
-    """Run a regression-based DiD with an interaction term.
+    """Estimate a regression-based DiD using an OLS model with an interaction term.
 
-    Returns the fitted model and the DiD coefficient on `treatment:period`.
+    Fits the model:
+    ``outcome ~ treatment + period + treatment:period [+ covariates]``
+    using HC1 heteroskedasticity-robust standard errors. The coefficient on
+    ``treatment:period`` is the DiD estimate of the average treatment effect.
+
+    Args:
+        df: DataFrame containing time, treatment, outcome, and optional covariate columns.
+        time_col: Name of the column representing the time dimension.
+        period_cutoff: Threshold value in ``time_col`` that divides pre (< cutoff)
+            from post (>= cutoff) periods. Can be a datetime, int, or float.
+        treatment_col: Name of the binary treatment column (0/1).
+        outcome_col: Name of the outcome column to model.
+        covariates: Optional list of additional covariate column names to include
+            as controls in the regression. Defaults to None.
+
+    Returns:
+        model: The fitted statsmodels OLS results object.
+        coef: The DiD coefficient for the ``treatment:period`` interaction term,
+            or None if the term is not present in the model.
     """
     df = df.copy()
     df["period"] = (df[time_col] >= period_cutoff).astype(int)
