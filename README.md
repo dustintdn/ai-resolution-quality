@@ -38,37 +38,34 @@ pytest tests/ -v
 ## Project Structure
 
 ```
-data/
-  synthetic_conversations.csv    pre-generated dataset (2 000 rows × 11 cols)
-
-notebooks/
-  00-data-exploration.ipynb      EDA, outcome distributions, pre-matching Love plot
-  10-causal-psm.ipynb            PSM pipeline, ATT estimates, sensitivity analysis
-  11-causal-did.ipynb            DiD analysis, parallel trends check, regression DiD
-
-src/
-  data/
-    generate.py                  synthetic conversation generator
-  analysis/
-    psm.py                       propensity-score estimation & nearest-neighbor matching
-    did.py                       simple and regression-based DiD estimators
-    balance.py                   SMD computation and balance table
-  models/
-    propensity.py                logistic and gradient-boosted propensity score models
-  sensitivity/
-    robustness.py                placebo permutation test, E-value
-  dashboard/
-    app.py                       Streamlit interactive dashboard
-
-tests/
-  test_generate.py               data generation unit tests
-  test_balance.py                SMD and balance table tests
-  test_psm.py                    propensity score and matching tests
-  test_did.py                    DiD estimator tests
-  test_robustness.py             placebo test and E-value tests
-
-.github/workflows/ci.yml         CI: lint (ruff) + pytest on Python 3.10 & 3.11
-requirements.txt                 project dependencies
+ai-resolution-quality/
+├── data/
+│   └── synthetic_conversations.csv    pre-generated dataset (2 000 rows × 11 cols)
+├── notebooks/
+│   ├── 00-data-exploration.ipynb      EDA, outcome distributions, pre-matching Love plot
+│   ├── 10-causal-psm.ipynb            PSM pipeline, ATT estimates, sensitivity analysis
+│   └── 11-causal-did.ipynb            DiD analysis, parallel trends check, regression DiD
+├── src/
+│   ├── data/
+│   │   └── generate.py                synthetic conversation generator
+│   ├── analysis/
+│   │   ├── psm.py                     propensity-score estimation & nearest-neighbor matching
+│   │   ├── did.py                     simple and regression-based DiD estimators
+│   │   └── balance.py                 SMD computation and balance table
+│   ├── models/
+│   │   └── propensity.py              logistic and gradient-boosted propensity score models
+│   ├── sensitivity/
+│   │   └── robustness.py              placebo permutation test, E-value
+│   └── dashboard/
+│       └── app.py                     Streamlit interactive dashboard
+├── tests/
+│   ├── test_generate.py               data generation unit tests
+│   ├── test_balance.py                SMD and balance table tests
+│   ├── test_psm.py                    propensity score and matching tests
+│   ├── test_did.py                    DiD estimator tests
+│   └── test_robustness.py             placebo test and E-value tests
+├── .github/workflows/ci.yml           CI: lint (ruff) + pytest on Python 3.10 & 3.11
+└── requirements.txt                   project dependencies
 ```
 
 ## Notebooks
