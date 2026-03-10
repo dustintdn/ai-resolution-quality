@@ -19,7 +19,7 @@ def main():
     df = df[(df.issue_severity >= sev[0]) & (df.issue_severity <= sev[1])]
 
     st.header("Outcome summaries")
-    summary = df.groupby("ai_assisted")["resolution_time", "satisfaction_score", "escalated"].mean()
+    summary = df.groupby("ai_assisted")[["resolution_time", "satisfaction_score", "escalated"]].mean()
     st.dataframe(summary.round(3))
 
     st.header("Resolution time distribution")
