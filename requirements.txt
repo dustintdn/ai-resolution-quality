@@ -1,9 +1,12 @@
 pandas
 numpy
 scikit-learn
+scipy
 matplotlib
-jupyter
+seaborn
+altair
 statsmodels
 streamlit
-seaborn
+jupyter
 pytest
+ruff

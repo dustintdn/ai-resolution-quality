@@ -1,49 +1,58 @@
-# AI-assisted Resolution Quality — Repo Scaffold
+# AI-Assisted Resolution Quality
 
-This repo contains starter code to simulate and analyze the causal impact of AI assistance on support resolution quality.
+Causal analysis of the impact of AI assistance on customer-support resolution quality. Uses propensity-score matching (PSM) and difference-in-differences (DiD) to estimate treatment effects on resolution time, satisfaction, and escalation rate.
 
-Quickstart
-
-1. Create & activate venv:
+## Quickstart
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate
+source .venv/bin/activate       # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-2. Generate synthetic data:
+Generate synthetic data, then explore:
 
 ```bash
-python -m src.data.generate
-```
-
-3. Run dashboard:
-
-```bash
+python -m src.data.generate     # writes data/synthetic_conversations.csv
+jupyter lab notebooks/          # open EDA and causal notebooks
 streamlit run src/dashboard/app.py
 ```
 
-Structure
-
-- `src/data/generate.py`: synthetic data generator
-- `src/analysis`: PSM and DiD utilities
-- `src/sensitivity`: placebo & E-value helpers
-- `src/dashboard`: Streamlit app
-# ai-resolution-quality
-
-A data science project for exploring AI resolution quality.
-
-## Setup
+Run tests:
 
 ```bash
-source .venv/bin/activate
-pip install -r requirements.txt
+pytest tests/ -v
 ```
 
-## Structure
+## Experiment Design
+
+| | |
+|---|---|
+| **Treatment** | AI-assisted response (`ai_assisted = 1`) |
+| **Control** | Human-only response (`ai_assisted = 0`) |
+| **Outcomes** | `resolution_time`, `satisfaction_score`, `escalated` |
+| **Confounders** | `issue_severity`, `customer_tenure`, `time_of_day`, `agent_experience` |
+| **Identification** | PSM for cross-sectional balance; DiD for pre/post rollout |
+| **Robustness** | Covariate balance (SMD), placebo permutation test, E-value |
+
+## Project Structure
 
 ```
-notebooks/   - Jupyter notebooks for exploration
-src/         - Reusable Python modules
+data/                          raw & synthetic datasets
+notebooks/
+  00-data-exploration.ipynb    EDA and distributions
+  10-causal-psm.ipynb          propensity-score matching pipeline
+  11-causal-did.ipynb          difference-in-differences analysis
+src/
+  data/generate.py             synthetic conversation generator
+  analysis/
+    psm.py                     PSM matching utilities
+    did.py                     DiD estimators
+    balance.py                 SMD / balance table
+  sensitivity/robustness.py    placebo tests, E-value
+  models/propensity.py         logistic & gradient-boosted PS models
+  dashboard/app.py             Streamlit interactive dashboard
+  utils.py                     shared helpers
+tests/                         pytest unit tests
+.github/workflows/ci.yml       CI (lint + test on Python 3.10 & 3.11)
 ```
