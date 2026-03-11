@@ -54,9 +54,9 @@ ai-resolution-quality/
 ├── data/
 │   └── synthetic_conversations.csv    pre-generated dataset (2 000 rows × 11 cols)
 ├── notebooks/
-│   ├── 00-data-exploration.ipynb      EDA, outcome distributions, pre-matching Love plot
-│   ├── 10-causal-psm.ipynb            PSM pipeline, ATT estimates, sensitivity analysis
-│   └── 11-causal-did.ipynb            DiD analysis, parallel trends check, regression DiD
+│   ├── 01-data-exploration.ipynb      EDA, outcome distributions, pre-matching Love plot
+│   ├── 02-causal-psm.ipynb            PSM pipeline, ATT estimates, sensitivity analysis
+│   └── 03-causal-did.ipynb            DiD analysis, parallel trends check, regression DiD
 ├── src/
 │   ├── data/
 │   │   └── generate.py                synthetic conversation generator
@@ -84,9 +84,9 @@ ai-resolution-quality/
 
 | Notebook | Purpose |
 |---|---|
-| `00-data-exploration` | Load data, plot outcome distributions by treatment group, covariate correlations, pre-matching Love plot, weekly volume time series |
-| `10-causal-psm` | Estimate propensity scores, common support check, 1:1 nearest-neighbor matching with caliper, pre/post-match balance, ATT estimates (t-tests), placebo test, E-value |
-| `11-causal-did` | Parallel trends visual check, simple and regression DiD on all outcomes, coefficient plot, placebo period test |
+| `01-data-exploration` | Load data, plot outcome distributions by treatment group, covariate correlations, pre-matching Love plot, weekly volume time series |
+| `02-causal-psm` | Estimate propensity scores, common support check, 1:1 nearest-neighbor matching with caliper, pre/post-match balance, ATT estimates (t-tests), placebo test, E-value |
+| `03-causal-did` | Parallel trends visual check, simple and regression DiD on all outcomes, coefficient plot, placebo period test |
 
 ## Source Modules
 

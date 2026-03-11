@@ -20,7 +20,7 @@ Treatment assignment is **confounded**: higher-severity issues are more likely t
 
 ---
 
-## Notebook 00 — Exploratory Data Analysis
+## Notebook 01 — Exploratory Data Analysis
 
 ### Treatment assignment
 - No AI assistance in the pre-period (2023); ~50 % AI-assisted in the post-period (2024).
@@ -34,7 +34,7 @@ All four covariates show imbalance before matching (|SMD| > 0.1), most pronounce
 
 ---
 
-## Notebook 10 — Propensity-Score Matching (PSM)
+## Notebook 02 — Propensity-Score Matching (PSM)
 
 ### Propensity score model
 Logistic regression on `issue_severity`, `customer_tenure`, `time_of_day`, and `agent_experience`. `issue_severity` carries the largest positive coefficient, consistent with its role as the primary confounder.
@@ -64,7 +64,7 @@ All estimates are statistically significant (two-sample t-tests on matched pairs
 
 ---
 
-## Notebook 11 — Difference-in-Differences (DiD)
+## Notebook 03 — Difference-in-Differences (DiD)
 
 ### Parallel trends check
 Monthly mean outcomes for treated and control groups track closely throughout 2023 (pre-period), with a clear divergence beginning in January 2024 after AI rollout. This visual pattern supports the parallel trends assumption.
