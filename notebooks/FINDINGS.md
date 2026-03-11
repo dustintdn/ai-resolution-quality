@@ -1,5 +1,7 @@
 # Analysis Findings: AI-Assisted Resolution Quality
 
+> **Note:** This dataset is synthetically generated with known ground-truth causal effects embedded at generation time. The purpose of this analysis is to demonstrate that the causal pipeline (PSM + DiD) correctly recovers those effects in the presence of confounding — not to discover novel findings from real data.
+
 Causal analysis of the impact of AI assistance on customer-support outcomes using a synthetic dataset of 2,000 conversations spanning a 2023 (pre) → 2024 (post) rollout period.
 
 ---
@@ -10,7 +12,7 @@ Causal analysis of the impact of AI assistance on customer-support outcomes usin
 |---|---|
 | **Rows** | 2,000 conversations |
 | **Treatment** | `ai_assisted` (0 = human-only, 1 = AI-assisted) |
-| **Overall AI rate** | ~50 % (post-period only) |
+| **Overall AI rate** | ~25 % of all rows; ~50 % of post-period rows |
 | **Outcomes** | `resolution_time` (min), `satisfaction_score` (1–5), `escalated` (0/1) |
 | **Confounders** | `issue_severity`, `customer_tenure`, `time_of_day`, `agent_experience` |
 

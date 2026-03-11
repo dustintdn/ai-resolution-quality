@@ -35,6 +35,18 @@ pytest tests/ -v
 | **Identification** | PSM for cross-sectional balance; DiD for pre/post rollout |
 | **Robustness** | Covariate balance (SMD), placebo permutation test, E-value |
 
+## Example Findings (Synthetic Data)
+
+The dataset has known ground-truth effects embedded at generation time. Both PSM and DiD successfully recover them, demonstrating that the causal pipeline works as intended:
+
+| Outcome | Recovered effect | Ground truth |
+|---|---|---|
+| `resolution_time` | ~−15 min | −15 min (hardcoded) |
+| `satisfaction_score` | ~+0.8 pts | +0.8 pts (hardcoded) |
+| `escalated` | ~−10–15 pp | halved escalation probability |
+
+Results are robust to covariate balance checks (all |SMD| < 0.1 post-matching), placebo permutation and period tests, and E-value sensitivity analysis. See [`notebooks/FINDINGS.md`](notebooks/FINDINGS.md) for the full walkthrough.
+
 ## Project Structure
 
 ```
