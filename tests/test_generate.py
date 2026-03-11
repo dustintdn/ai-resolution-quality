@@ -1,7 +1,5 @@
 import pandas as pd
-import pytest
 from src.data.generate import generate_synthetic_conversations, COVARIATES
-
 
 def test_generate_length():
     df = generate_synthetic_conversations(500, seed=1)
