@@ -1,4 +1,4 @@
-# AI-Assisted Resolution Quality
+# Measuring the Causal Effect of AI Assistance on Customer Support
 
 Causal analysis of the impact of AI assistance on customer-support resolution quality. Uses propensity-score matching (PSM) and difference-in-differences (DiD) to estimate treatment effects on resolution time, satisfaction score, and escalation rate.
 
