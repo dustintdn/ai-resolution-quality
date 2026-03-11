@@ -8,3 +8,7 @@ results/
 .pytest_cache/
 .DS_Store
 .claude/
+.ruff_cache/
+*.egg-info/
+dist/
+.env
